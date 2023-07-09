@@ -377,7 +377,7 @@ def thread_rpc_check_and_burn(private_key, rpc_url, delay, error_threshold=10):
             'chainId': w3.eth.chain_id,
             'to': account.address,
             'from': account.address,
-            'gas': 27000,
+            'gas': 21500,
             'value': 0,
             'data': '',
             }
@@ -405,14 +405,14 @@ def thread_rpc_check_and_burn(private_key, rpc_url, delay, error_threshold=10):
                     try:
                         txn['nonce'] = w3.eth.get_transaction_count(account.address)
                         if 'type' in txn and txn['type'] == 2:
-                            maxFeePerGas = math.floor(wallet_balance / 27000)
+                            maxFeePerGas = math.floor(wallet_balance / txn['gas'])
                             maxPriorityFeePerGas = maxFeePerGas - current_baseFee
                             txn['maxFeePerGas'] = maxFeePerGas
                             txn['maxPriorityFeePerGas'] = maxPriorityFeePerGas
                             txn_t2 = {**{k: txn[k] for k in txn if k in ('nonce', 'to', 'data', 'value', 'chainId', 'maxPriorityFeePerGas', 'maxFeePerGas', 'gas', 'type')}, "accessList": []}
                             signed_txn = account.sign_transaction(txn_t2)
                         else:
-                            txn['gasPrice'] = math.floor(wallet_balance / 27000)
+                            txn['gasPrice'] = math.floor(wallet_balance / txn['gas'])
                             txn_t0 = {**{k: txn[k] for k in txn if k in ('nonce', 'to', 'data', 'value', 'chainId', 'gasPrice', 'gas')}}
                             signed_txn = account.sign_transaction(txn_t0)
                         txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction).hex()

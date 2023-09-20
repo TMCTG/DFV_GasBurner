@@ -415,7 +415,7 @@ def thread_rpc_check_and_burn(private_key, rpc_url, delay, error_threshold=10):
                             txn['gasPrice'] = math.floor(wallet_balance / txn['gas'])
                             txn_t0 = {**{k: txn[k] for k in txn if k in ('nonce', 'to', 'data', 'value', 'chainId', 'gasPrice', 'gas')}}
                             signed_txn = account.sign_transaction(txn_t0)
-                        txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction).hex()
+                        txn_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction).hex()
                         print(f"{str(math.floor(time.time()))} | {format(datetime.datetime.now(), '%H:%M')} , Chain: {txn['chainId']}, RPC: {rpc_url}, {abbreviated_wallet} - Burning gas - Transaction hash: {str(txn_hash)} - {str(txn)}")
                     except Exception as err:
                         if show_errors: print(f"Error sending tx: [{err} on RPC: {rpc_url}")

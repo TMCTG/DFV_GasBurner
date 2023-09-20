@@ -371,7 +371,7 @@ def thread_rpc_check_and_burn(private_key, rpc_url, delay, error_threshold=10):
     errors=0
     try:
         w3 = Web3(HTTPProvider(rpc_url))
-        account = w3.eth.account.privateKeyToAccount(private_key)
+        account = w3.eth.account.from_key(private_key)
         abbreviated_wallet = "[" + re.sub("(^.{6})(.*)(.{4}$)", "\g<1>..\g<3>", account.address) + "]"  # eg. [0xa51B..F41c]
         txn = {  # Set up txn fields that won't change
             'chainId': w3.eth.chain_id,

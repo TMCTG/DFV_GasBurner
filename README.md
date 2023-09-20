@@ -1,5 +1,5 @@
 # DFV_GasBurner
-## !!This will continuously destroy all gas on all selected chains!!
+## !! This will continuously destroy all gas on all selected chains !!
 
 VICTIMS: ONLY use this to thwart ongoing theft attempts on your wallet's assets
 

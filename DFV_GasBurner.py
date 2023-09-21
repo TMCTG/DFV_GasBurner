@@ -377,7 +377,7 @@ def thread_rpc_check_and_burn(private_key, rpc_url, delay, error_threshold=10):
             'chainId': w3.eth.chain_id,
             'to': account.address,
             'from': account.address,
-            'gas': 21500,
+            'gas': 21000,
             'value': 0,
             'data': '',
             }
